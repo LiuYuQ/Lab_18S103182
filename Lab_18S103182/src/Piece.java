@@ -4,15 +4,16 @@ public class Piece implements Cloneable{
 	public String color;
 	public int belongto = -1;
 	public Player player;
-	public Piece(String inputname, Player playerid, int i){
-		name = inputname;
-		player = playerid;
-		if(i == 1)
+	public Piece(String input_name, Player player_id, int side){
+		name = input_name;
+		player = player_id;
+		if(side == 1)
 			color = "white";
-		if(i == 2) 
+		if(side == 2) 
 			color = "black";
-		belongto = i;
+		belongto = side;
 	}
+	
 	public Object clone(){
 		Piece p = null;
 		try{

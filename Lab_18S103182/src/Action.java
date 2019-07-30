@@ -1,9 +1,17 @@
 
 public class Action{
-	int playerid;
+	public int playerid;
 	public Position src, dest;
-	public Action(int inputid){
-		playerid = inputid;
+	public Action(int id){
+		playerid = id;
+	}
+	
+	//查询
+	public int search(Position p){
+		if(p.flag == 1) 
+			return 1;
+		else 
+			return 0;
 	}
 	
 	//落子
@@ -12,7 +20,7 @@ public class Action{
 			System.out.printf("Put fail:坐标超出棋盘范围！");
 			return 0;
 		}
-		if(select(p) == 0){
+		if(search(p) == 0){
 			if(playerid == 1){
 				Piece new_piece = new Piece(" 白 ", player, 1);
 				p.put(new_piece);
@@ -41,12 +49,12 @@ public class Action{
 			System.out.printf("Put fail:坐标超出棋盘范围！");
 			return 0;
 		}
-		if(select(src) == 1){
+		if(search(src) == 1){
 			if(src.p.belongto != playerid){
 				System.out.println("Move fail:不是你的棋子\n");
 				return 0;
 			}
-			else if(select(dest) == 1){
+			else if(search(dest) == 1){
 				if(dest.p.color=="black")
 					System.out.printf("Move fail:位置(%d, %d)已被" + "%s占用\n", dest.x, dest.y, dest.p.name);
 				else
@@ -74,7 +82,7 @@ public class Action{
 			System.out.printf("Put fail:坐标超出棋盘范围！");
 			return 0;
 		}
-		if(select(p)==0){
+		if(search(p)==0){
 			System.out.printf("Take fail:位置(%d, %d)没有棋子\n", p.x, p.y);
 			return 0;
 		}
@@ -100,12 +108,12 @@ public class Action{
 			System.out.printf("Put fail:坐标超出棋盘范围！");
 			return 0;
 		}
-		if(select(src) == 1){
+		if(search(src) == 1){
 			if(src.p.belongto != playerid){
 				System.out.println("Eat fail:不是你的棋子\n");
 				return 0;
 			}
-			else if(select(dest) == 0){
+			else if(search(dest) == 0){
 				System.out.printf("Eat fail:位置(%d, %d)没有棋子\n", dest.x, dest.y);
 				return 0;
 			}
@@ -129,11 +137,4 @@ public class Action{
 		return 0;
 	}		
 	
-	//查询
-	public int select(Position p){
-		if(p.flag == 1) 
-			return 1;
-		else 
-			return 0;
-	}
 }
